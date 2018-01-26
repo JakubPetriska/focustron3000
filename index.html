@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Countdown app</title>
+    <meta charset="UTF-8">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <div v-if="to">
+          <div v-if="secondsLeft > 0">
+            {{ timeLeftString }}
+          </div>
+          <div v-else>
+            It's finished
+          </div>
+        </div>
+        <div v-else>
+          <v-layout row wrap>
+            <v-flex xs11 sm5>
+              <v-menu
+                lazy
+                :close-on-content-click="false"
+                v-model="menuDatepicker"
+                transition="scale-transition"
+                offset-y
+                full-width
+                :nudge-right="40"
+                max-width="290px"
+                min-width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  label="Date"
+                  v-model="date"
+                  prepend-icon="event"
+                  readonly
+                ></v-text-field>
+                <v-date-picker v-model="date" no-title scrollable actions>
+                  <template slot-scope="{ save, cancel }">
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                      <v-btn flat color="primary" @click="save">OK</v-btn>
+                    </v-card-actions>
+                  </template>
+                </v-date-picker>
+              </v-menu>
+            </v-flex>
+
+            <v-spacer></v-spacer>
+
+            <v-flex xs11 sm5>
+              <v-menu
+                lazy
+                :close-on-content-click="false"
+                v-model="menuTimepicker"
+                transition="scale-transition"
+                offset-y
+                full-width
+                :nudge-right="40"
+                max-width="290px"
+                min-width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  label="Time"
+                  v-model="time"
+                  prepend-icon="access_time"
+                  readonly
+                ></v-text-field>
+                <v-time-picker v-model="time" format="24hr"></v-time-picker>
+              </v-menu>
+            </v-flex>
+
+            <v-btn color="primary" @click="startCountdown">Start countdown</v-btn>
+          </v-layout>
+        </div>
+      </v-app>
+    </div>
+
+    <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
