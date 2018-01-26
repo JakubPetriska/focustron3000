@@ -4,6 +4,8 @@
     <title>Countdown app</title>
     <meta charset="UTF-8">
 
+    <link href="styles.css" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
@@ -17,10 +19,10 @@
       <v-app>
         <div v-if="to">
           <div v-if="secondsLeft > 0">
-            {{ timeLeftString }}
+            <p class="main-text">{{ timeLeftString }}</h1>
           </div>
           <div v-else>
-            It's finished
+            <p class="main-text">It's finished</h1>
           </div>
         </div>
         <div v-else>
