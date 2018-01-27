@@ -60,12 +60,13 @@ Vue.component('countdown', {
   created: function () {
     this.updateSecondsLeft();
     this.secondsLeftTotal =this.to.unix() - this.from.unix();
+    this.updateTitle();
     this.updateFavicon();
     this.countdownUpdateIntervalId = setInterval(
       () => {
         this.updateSecondsLeft();
+        this.updateTitle();
         this.updateFavicon();
-        document.title = this.timeLeftString;
         if (this.secondsLeft <= 0) {
           clearInterval(this.countdownUpdateIntervalId);
           document.title = 'Finished!';
@@ -88,6 +89,9 @@ Vue.component('countdown', {
   methods: {
     updateSecondsLeft: function () {
       this.secondsLeft = Math.max(this.to.unix() - moment().unix(), 0);
+    },
+    updateTitle: function () {
+      document.title = this.timeLeftTitleString;
     },
     updateFavicon: function () {
       const progressPercentage =
@@ -145,16 +149,27 @@ Vue.component('countdown', {
     }
   },
   computed: {
-    timeLeftString: function () {
+    timeLeft: function () {
       let currentSecondsLeft = this.secondsLeft;
       const hoursLeft = Math.floor(currentSecondsLeft / SECONDS_PER_HOUR);
       currentSecondsLeft -= hoursLeft * SECONDS_PER_HOUR;
 
       const minutesLeft = Math.floor(currentSecondsLeft / SECONDS_PER_MINUTE);
       currentSecondsLeft -= minutesLeft * SECONDS_PER_MINUTE;
-
-      return [hoursLeft, minutesLeft, currentSecondsLeft]
+      return [hoursLeft, minutesLeft, currentSecondsLeft];
+    },
+    timeLeftString: function () {
+      return this.timeLeft
         .map(formatNumberToTwoDigits)
+        .join(':');
+    },
+    timeLeftTitleString: function () {
+      let values = this.timeLeft;
+      while(values[0] === 0) {
+        values = values.slice(1);
+      }
+      return values
+        .map((e, i) => i > 0 ? formatNumberToTwoDigits(e) : (e + ''))
         .join(':');
     }
   }
