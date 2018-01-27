@@ -2,5 +2,18 @@
   font-size: 98pt;
   font-weight: 300;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 2cm;
+}
+
+.quote-body {
+  text-align: center;
+  margin-top: 2cm;
+  font-size: 18pt;
+  font-weight: 300;
+}
+
+.quote-author {
+  text-align: center;
+  font-size: 18pt;
+  font-weight: 300;
 }

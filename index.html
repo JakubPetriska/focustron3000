@@ -15,6 +15,7 @@
     <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
 
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="libs/papaparse.min.js"></script>
   </head>
   <body>
     <template id="home">
@@ -87,17 +88,23 @@
         <div v-else>
           <p class="main-text">It's finished</h1>
         </div>
+        <div v-if="currentQuote">
+          <p class="quote-body">{{ currentQuote[1] }}</p>
+          <p v-if="currentQuote[0]" class="quote-author">- {{ currentQuote[0] }}</p>
+        </div>
       </div>
     </template>
 
     <div id="app">
       <v-app>
-        <div v-if="to">
-          <countdown></countdown>
-        </div>
-        <div v-else>
-          <home></home>
-        </div>
+        <v-container>
+          <div v-if="to">
+            <countdown></countdown>
+          </div>
+          <div v-else>
+            <home></home>
+          </div>
+        </v-container>
       </v-app>
     </div>
 

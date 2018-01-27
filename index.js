@@ -4,6 +4,9 @@ const FAVICON_BORDER_SIZE = 3;
 const SECONDS_PER_HOUR = 60 * 60;
 const SECONDS_PER_MINUTE = 60;
 
+const QUOTES_LINK = 'https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/b67adf9f1978df0288486ca076023798fea11e3d/quotes.csv';
+const QUOTE_REFRESH_INTERVAL_SECONDS = 5 * 60;
+
 const formatNumberToTwoDigits = (number) => {
   const str = number + '';
   if (str.length == 1) {
@@ -16,6 +19,7 @@ const formatNumberToTwoDigits = (number) => {
 const params = (new URL(document.location)).searchParams;
 const to = params.get("to");
 const from = params.get("from");
+const r = params.get("r");
 
 Vue.component('home', {
   template: '#home',
@@ -29,8 +33,9 @@ Vue.component('home', {
     startCountdown: function () {
       const pickedDatetime = moment(this.date + ' ' + this.time);
       const params = [
+        'r=' + Math.round(Math.random() * 5000 + 1),
         'from=' + moment().toISOString(),
-        'to=' + pickedDatetime.toISOString()
+        'to=' + pickedDatetime.toISOString(),
       ].join('&');
       const url = window.location.origin + window.location.pathname + '?' + params;
       window.location.href = url;
@@ -43,11 +48,14 @@ Vue.component('countdown', {
   data: () => ({
     to: moment(to),
     from: moment(from),
+    randomModifier: r,
     secondsLeftTotal: -1,
     secondsLeft: -1,
     countdownUpdateIntervalId: -1,
     faviconLink: null,
-    lastFaviconStep: -1
+    lastFaviconStep: -1,
+    quotes: null,
+    currentQuote: null,
   }),
   created: function () {
     this.updateSecondsLeft();
@@ -65,6 +73,17 @@ Vue.component('countdown', {
       },
       1000
     );
+
+    const quotesDownloadCompleteFunc = (results) => {
+      if (results.errors.length == 0) {
+        this.quotes = results.data;
+        this.updateQuote();
+      }
+    };
+    Papa.parse(QUOTES_LINK, {
+      download: true,
+      complete: quotesDownloadCompleteFunc
+    });
   },
   methods: {
     updateSecondsLeft: function () {
@@ -112,6 +131,17 @@ Vue.component('countdown', {
       link.href = canvas.toDataURL("image/x-icon");
       document.getElementsByTagName('head')[0].appendChild(link);
       this.faviconLink = link;
+    },
+    updateQuote: function() {
+      const quoteShowtime =
+        Math.floor(moment().unix() / QUOTE_REFRESH_INTERVAL_SECONDS) * QUOTE_REFRESH_INTERVAL_SECONDS;
+
+      let quoteIndex = quoteShowtime % this.quotes.length;
+      quoteIndex = ((quoteIndex + this.randomModifier) * this.randomModifier) % this.quotes.length;
+      this.currentQuote = this.quotes[quoteIndex];
+
+      const nextQuoteShowtime = quoteShowtime + QUOTE_REFRESH_INTERVAL_SECONDS;
+      setTimeout(() => this.updateQuote(), (nextQuoteShowtime - moment().unix() + 1) * 1000);
     }
   },
   computed: {
