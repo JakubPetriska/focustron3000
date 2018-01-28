@@ -28,7 +28,19 @@ Vue.component('home', {
     menuTimepicker: null,
     date: moment().add(2, 'h').format('YYYY-MM-DD'),
     time: moment().add(2, 'h').format('HH:mm'),
+    faviconLink: null,
   }),
+  created: function () {
+    const link = document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = 'favicon.png';
+    document.getElementsByTagName('head')[0].appendChild(link);
+    this.faviconLink = link;
+  },
+  destroyed: function () {
+    this.faviconLink.remove();
+  },
   methods: {
     startCountdown: function () {
       const pickedDatetime = moment(this.date + ' ' + this.time);
