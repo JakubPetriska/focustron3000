@@ -146,6 +146,10 @@ Vue.component('countdown', {
 
       const nextQuoteShowtime = quoteShowtime + QUOTE_REFRESH_INTERVAL_SECONDS;
       setTimeout(() => this.updateQuote(), (nextQuoteShowtime - moment().unix() + 1) * 1000);
+    },
+    goBack: function () {
+      const url = window.location.origin + window.location.pathname;
+      window.location.href = url;
     }
   },
   computed: {

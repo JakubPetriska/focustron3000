@@ -87,6 +87,9 @@
         </div>
         <div v-else>
           <p class="main-text">It's finished</h1>
+          <v-layout row align-center justify-center class="go-back-container">
+            <v-btn color="primary" @click="goBack">go back</v-btn>
+          </v-layout>
         </div>
         <div v-if="currentQuote">
           <p class="quote-body">{{ currentQuote[1] }}</p>
