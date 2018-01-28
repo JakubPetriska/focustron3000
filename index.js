@@ -151,12 +151,11 @@ Vue.component('countdown', {
     updateQuote: function() {
       const quoteShowtime =
         Math.floor(moment().unix() / QUOTE_REFRESH_INTERVAL_SECONDS) * QUOTE_REFRESH_INTERVAL_SECONDS;
+      const nextQuoteShowtime = quoteShowtime + QUOTE_REFRESH_INTERVAL_SECONDS;
 
-      let quoteIndex = quoteShowtime % this.quotes.length;
-      quoteIndex = ((quoteIndex + this.randomModifier) * this.randomModifier) % this.quotes.length;
+      const quoteIndex = Math.round(quoteShowtime * this.randomModifier) % this.quotes.length;
       this.currentQuote = this.quotes[quoteIndex];
 
-      const nextQuoteShowtime = quoteShowtime + QUOTE_REFRESH_INTERVAL_SECONDS;
       setTimeout(() => this.updateQuote(), (nextQuoteShowtime - moment().unix() + 1) * 1000);
     },
     goBack: function () {
