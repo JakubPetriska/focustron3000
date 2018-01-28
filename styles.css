@@ -1,3 +1,24 @@
+.name {
+  font-size: 48pt;
+  font-weight: 300;
+  text-align: center;
+}
+
+.description {
+  font-size: 12pt;
+  font-weight: 300;
+  text-align: center;
+  margin-top: 1cm;
+}
+
+.countdown-setup {
+  margin-top: 2cm;
+}
+
+.countdown-start-btn {
+  margin-top: 1cm;
+}
+
 .main-text {
   font-size: 98pt;
   font-weight: 300;

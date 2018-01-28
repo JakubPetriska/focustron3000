@@ -19,74 +19,89 @@
   </head>
   <body>
     <template id="home">
-      <v-layout row wrap>
-        <v-flex xs11 sm5>
-          <v-menu
-            lazy
-            :close-on-content-click="false"
-            v-model="menuDatepicker"
-            transition="scale-transition"
-            offset-y
-            full-width
-            :nudge-right="40"
-            max-width="290px"
-            min-width="290px"
-          >
-            <v-text-field
-              slot="activator"
-              label="Date"
-              v-model="date"
-              prepend-icon="event"
-              readonly
-            ></v-text-field>
-            <v-date-picker v-model="date" no-title scrollable actions>
-              <template slot-scope="{ save, cancel }">
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                  <v-btn flat color="primary" @click="save">OK</v-btn>
-                </v-card-actions>
-              </template>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
+      <div>
+        <p class="name">Focustron3000</p>
 
-        <v-spacer></v-spacer>
+        <p class="description">
+          Set countdown and focus while it's running.<br />
+          Get motivated by the top motivational quotes in the game.<br />
+          <br />
+          Go ape s**t on your productivity!
+        </p>
 
-        <v-flex xs11 sm5>
-          <v-menu
-            lazy
-            :close-on-content-click="false"
-            v-model="menuTimepicker"
-            transition="scale-transition"
-            offset-y
-            full-width
-            :nudge-right="40"
-            max-width="290px"
-            min-width="290px"
-          >
-            <v-text-field
-              slot="activator"
-              label="Time"
-              v-model="time"
-              prepend-icon="access_time"
-              readonly
-            ></v-text-field>
-            <v-time-picker v-model="time" format="24hr"></v-time-picker>
-          </v-menu>
-        </v-flex>
+        <div class="countdown-setup">
+          <v-layout row align-center justify-center wrap>
+            <v-flex xs11 sm5>
+              <v-menu
+                lazy
+                :close-on-content-click="false"
+                v-model="menuDatepicker"
+                transition="scale-transition"
+                offset-y
+                full-width
+                :nudge-right="40"
+                max-width="290px"
+                min-width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  label="Date"
+                  v-model="date"
+                  prepend-icon="event"
+                  readonly
+                ></v-text-field>
+                <v-date-picker v-model="date" no-title scrollable actions>
+                  <template slot-scope="{ save, cancel }">
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                      <v-btn flat color="primary" @click="save">OK</v-btn>
+                    </v-card-actions>
+                  </template>
+                </v-date-picker>
+              </v-menu>
+            </v-flex>
+          </v-layout>
 
-        <v-btn color="primary" @click="startCountdown">Start countdown</v-btn>
-      </v-layout>
+          <v-layout row align-center justify-center wrap>
+            <v-flex xs11 sm5>
+              <v-menu
+                lazy
+                :close-on-content-click="false"
+                v-model="menuTimepicker"
+                transition="scale-transition"
+                offset-y
+                full-width
+                :nudge-right="40"
+                max-width="290px"
+                min-width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  label="Time"
+                  v-model="time"
+                  prepend-icon="access_time"
+                  readonly
+                ></v-text-field>
+                <v-time-picker v-model="time" format="24hr"></v-time-picker>
+              </v-menu>
+            </v-flex>
+          </v-layout>
+
+          <v-layout row align-center justify-center wrap class="countdown-start-btn">
+            <v-btn color="primary" @click="startCountdown">focus</v-btn>
+          </v-layout>
+        </div>
+      </div>
     </template>
 
     <template id="countdown">
       <div>
         <div v-if="secondsLeft > 0">
-          <p class="main-text">{{ timeLeftString }}</h1>
+          <p class="main-text">{{ timeLeftString }}</p>
         </div>
         <div v-else>
-          <p class="main-text">It's finished</h1>
+          <p class="main-text">It's finished</p>
           <v-layout row align-center justify-center class="go-back-container">
             <v-btn color="primary" @click="goBack">go back</v-btn>
           </v-layout>
