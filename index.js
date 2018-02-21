@@ -26,6 +26,8 @@ Vue.component('home', {
   data: () => ({
     menuDatepicker: null,
     menuTimepicker: null,
+
+
     date: moment().add(2, 'h').format('YYYY-MM-DD'),
     time: moment().add(2, 'h').format('HH:mm'),
     faviconLink: null,
@@ -88,7 +90,7 @@ Vue.component('countdown', {
 
     const quotesDownloadCompleteFunc = (results) => {
       if (results.errors.length == 0) {
-        this.quotes = results.data;
+        this.quotes = results.data.slice(1); // Remove header row
         this.updateQuote();
       }
     };
