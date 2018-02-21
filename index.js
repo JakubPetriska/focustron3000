@@ -41,18 +41,17 @@ Vue.component('home', {
   destroyed: function () {
     this.faviconLink.remove();
   },
-  methods: {
-    startCountdown: function () {
+  computed: {
+    timerLink: function () {
       const pickedDatetime = moment(this.date + ' ' + this.time);
       const params = [
         'r=' + Math.round(Math.random() * 5000 + 1),
         'from=' + moment().toISOString(),
         'to=' + pickedDatetime.toISOString(),
       ].join('&');
-      const url = window.location.origin + window.location.pathname + '?' + params;
-      window.location.href = url;
+      return window.location.origin + window.location.pathname + '?' + params;
     }
-  }
+  },
 });
 
 Vue.component('countdown', {
