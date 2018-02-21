@@ -17,6 +17,8 @@
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
     <script src="libs/papaparse.min.js"></script>
 
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-91188723-2"></script>
     <script>
@@ -125,14 +127,31 @@
 
     <div id="app">
       <v-app>
-        <v-container>
-          <div v-if="to">
-            <countdown></countdown>
-          </div>
-          <div v-else>
-            <home></home>
-          </div>
-        </v-container>
+        <v-content>
+          <v-container>
+            <div v-if="to">
+              <countdown></countdown>
+            </div>
+            <div v-else>
+              <home></home>
+            </div>
+          </v-container>
+        </v-content>
+        <v-footer class="transparent" height="128">
+          <v-layout justify-center>
+              <span class="text-center star-text">
+                If you like it, then you should put a star on it
+              </span>
+              <a
+                class="github-button"
+                href="https://github.com/JakubPetriska/focustron3000"
+                data-icon="octicon-star"
+                data-size="large"
+                aria-label="Star JakubPetriska/focustron3000 on GitHub">
+                Star
+              </a>
+          </v-layout>
+        </v-footer>
       </v-app>
     </div>
 

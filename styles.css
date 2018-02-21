@@ -42,3 +42,11 @@
   font-size: 18pt;
   font-weight: 300;
 }
+
+.star-text {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  font-size: 12pt;
+  font-weight: 300;
+}
