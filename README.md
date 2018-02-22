@@ -4,4 +4,4 @@ Set countdown and focus while it's running. Get motivated by the top motivationa
 
 Go ape s\*\*t on your productivity!
 
-Use it here [https://jakubpetriska.github.io/focustron3000/](https://jakubpetriska.github.io/focustron3000/).
+Try it out here [https://jakubpetriska.github.io/focustron3000/](https://jakubpetriska.github.io/focustron3000/)
