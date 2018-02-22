@@ -32,12 +32,12 @@
   <body>
     <template id="home">
       <v-container justify-center>
-        <br />
+        <br class="hidden-xs-only"/>
 
         <p class="hidden-sm-and-up text-xs-center page-header-small">Focustron3000</p>
         <p class="hidden-xs-only text-xs-center page-header">Focustron3000</p>
 
-        <br />
+        <br class="hidden-xs-only"/>
 
         <p class="text-xs-center body-1">
           Set countdown and focus while it's running.<br />
@@ -110,7 +110,7 @@
 
     <template id="countdown">
       <v-container justify-center>
-        <br />
+        <br class="hidden-xs-only"/>
 
         <p class="hidden-sm-and-up text-xs-center page-header-small">
           {{ countdownPageHeader }}
@@ -119,13 +119,13 @@
           {{ countdownPageHeader }}
         </p>
 
-        <br />
+        <br class="hidden-xs-only"/>
 
         <v-layout v-if="secondsLeft <= 0" row align-center justify-center>
           <v-btn color="primary" @click="goBack">go back</v-btn>
         </v-layout>
 
-        <br />
+        <br class="hidden-xs-only"/>
         <br />
 
         <div v-if="currentQuote">
