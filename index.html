@@ -31,118 +31,129 @@
   </head>
   <body>
     <template id="home">
-      <div>
-        <p class="name">Focustron3000</p>
+      <v-container justify-center>
+        <br />
 
-        <p class="description">
+        <p class="hidden-sm-and-up text-xs-center page-header-small">Focustron3000</p>
+        <p class="hidden-xs-only text-xs-center page-header">Focustron3000</p>
+
+        <br />
+
+        <p class="text-xs-center body-1">
           Set countdown and focus while it's running.<br />
           Get motivated by the top motivational quotes in the game.<br />
           <br />
           Go ape s**t on your productivity!
         </p>
 
-        <div class="countdown-setup">
-          <v-layout row align-center justify-center wrap>
-            <v-flex xs11 sm5>
-              <v-menu
-                lazy
-                :close-on-content-click="false"
-                v-model="menuDatepicker"
-                transition="scale-transition"
-                offset-y
-                full-width
-                :nudge-right="40"
-                max-width="290px"
-                min-width="290px"
-              >
-                <v-text-field
-                  slot="activator"
-                  label="Date"
-                  v-model="date"
-                  prepend-icon="event"
-                  readonly
-                ></v-text-field>
-                <v-date-picker v-model="date" no-title scrollable actions>
-                </v-date-picker>
-              </v-menu>
-            </v-flex>
-          </v-layout>
+        <br />
 
-          <v-layout row align-center justify-center wrap>
-            <v-flex xs11 sm5>
-              <v-menu
-                lazy
-                :close-on-content-click="false"
-                v-model="menuTimepicker"
-                transition="scale-transition"
-                offset-y
-                full-width
-                :nudge-right="40"
-                max-width="290px"
-                min-width="290px"
-              >
-                <v-text-field
-                  slot="activator"
-                  label="Time"
-                  v-model="time"
-                  prepend-icon="access_time"
-                  readonly
-                ></v-text-field>
-                <v-time-picker v-model="time" format="24hr"></v-time-picker>
-              </v-menu>
-            </v-flex>
-          </v-layout>
+        <v-layout row justify-center wrap>
+          <v-flex xs11 sm5>
+            <v-menu
+              lazy
+              :close-on-content-click="false"
+              v-model="menuDatepicker"
+              transition="scale-transition"
+              offset-y
+              full-width
+              :nudge-right="40"
+              max-width="290px"
+              min-width="290px"
+            >
+              <v-text-field
+                slot="activator"
+                label="Date"
+                v-model="date"
+                prepend-icon="event"
+                readonly
+              ></v-text-field>
+              <v-date-picker v-model="date" no-title scrollable actions>
+              </v-date-picker>
+            </v-menu>
+          </v-flex>
+        </v-layout>
+        <v-layout row justify-center wrap>
+          <v-flex xs11 sm5>
+            <v-menu
+              lazy
+              :close-on-content-click="false"
+              v-model="menuTimepicker"
+              transition="scale-transition"
+              offset-y
+              full-width
+              :nudge-right="40"
+              max-width="290px"
+              min-width="290px"
+            >
+              <v-text-field
+                slot="activator"
+                label="Time"
+                v-model="time"
+                prepend-icon="access_time"
+                readonly
+              ></v-text-field>
+              <v-time-picker v-model="time" format="24hr"></v-time-picker>
+            </v-menu>
+          </v-flex>
+        </v-layout>
+        <v-layout row justify-center wrap>
+          <v-btn color="primary" v-bind:href="timerLink">focus</v-btn>
+        </v-layout>
+      </v-container>
+    </template>
 
-          <v-layout row align-center justify-center wrap class="countdown-start-btn">
-            <v-btn color="primary" v-bind:href="timerLink">focus</v-btn>
-          </v-layout>
-        </div>
-      </div>
+    <template id="countdown-top">
+      <template v-if="secondsLeft > 0">{{ timeLeftString }}</template>
+      <template v-else>It's finished</template>
     </template>
 
     <template id="countdown">
-      <div>
-        <div v-if="secondsLeft > 0">
-          <p class="main-text">{{ timeLeftString }}</p>
-        </div>
-        <div v-else>
-          <p class="main-text">It's finished</p>
-          <v-layout row align-center justify-center class="go-back-container">
-            <v-btn color="primary" @click="goBack">go back</v-btn>
-          </v-layout>
-        </div>
+      <v-container justify-center>
+        <br />
+
+        <p class="hidden-sm-and-up text-xs-center page-header-small">
+          {{ countdownPageHeader }}
+        </p>
+        <p class="hidden-xs-only text-xs-center page-header">
+          {{ countdownPageHeader }}
+        </p>
+
+        <br />
+
+        <v-layout v-if="secondsLeft <= 0" row align-center justify-center>
+          <v-btn color="primary" @click="goBack">go back</v-btn>
+        </v-layout>
+
+        <br />
+        <br />
+
         <div v-if="currentQuote">
-          <p class="quote-body">{{ currentQuote[1] }}</p>
-          <p v-if="currentQuote[0]" class="quote-author">- {{ currentQuote[0] }}</p>
+          <p class="text-xs-center quote">{{ currentQuote[1] }}</p>
+          <p v-if="currentQuote[0]" class="text-xs-center quote">- {{ currentQuote[0] }}</p>
         </div>
-      </div>
+      </v-container>
     </template>
 
     <div id="app">
       <v-app>
         <v-content>
-          <v-container>
-            <div v-if="to">
-              <countdown></countdown>
-            </div>
-            <div v-else>
-              <home></home>
-            </div>
-          </v-container>
+          <countdown v-if="to"></countdown>
+          <home v-else></home>
         </v-content>
         <v-footer class="transparent" height="128">
           <v-layout justify-center>
-              <span class="text-center star-text">
-                If you like it, then you should put a star on it
-              </span>
-              <a
-                class="github-button"
-                href="https://github.com/JakubPetriska/focustron3000"
-                data-icon="octicon-star"
-                data-size="large"
-                aria-label="Star JakubPetriska/focustron3000 on GitHub">
-                Star
-              </a>
+            <span class="body-1 star-text">
+              If you like it, then you should put a star on it
+            </span>
+            <a
+              class="github-button"
+              href="https://github.com/JakubPetriska/focustron3000"
+              data-icon="octicon-star"
+              data-size="large"
+              aria-label="Star JakubPetriska/focustron3000 on GitHub">
+              Star
+            </a>
           </v-layout>
         </v-footer>
       </v-app>

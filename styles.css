@@ -1,44 +1,14 @@
-.name {
+.page-header {
   font-size: 48pt;
   font-weight: 300;
-  text-align: center;
 }
 
-.description {
-  font-size: 12pt;
-  font-weight: 300;
-  text-align: center;
-  margin-top: 1cm;
-}
-
-.countdown-setup {
-  margin-top: 2cm;
-}
-
-.countdown-start-btn {
-  margin-top: 1cm;
-}
-
-.main-text {
-  font-size: 98pt;
-  font-weight: 300;
-  text-align: center;
-  margin-top: 2cm;
-}
-
-.go-back-container {
-  margin-top: 1cm;
-}
-
-.quote-body {
-  text-align: center;
-  margin-top: 2cm;
-  font-size: 18pt;
+.page-header-small {
+  font-size: 45px;
   font-weight: 300;
 }
 
-.quote-author {
-  text-align: center;
+.quote {
   font-size: 18pt;
   font-weight: 300;
 }
@@ -47,6 +17,4 @@
   display: inline-flex;
   align-items: center;
   margin-right: 6px;
-  font-size: 12pt;
-  font-weight: 300;
 }

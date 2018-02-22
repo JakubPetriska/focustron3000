@@ -187,7 +187,14 @@ Vue.component('countdown', {
       return values
         .map((e, i) => i > 0 ? formatNumberToTwoDigits(e) : (e + ''))
         .join(':');
-    }
+    },
+    countdownPageHeader: function () {
+      if (this.secondsLeft > 0) {
+        return this.timeLeftTitleString;
+      } else {
+        return 'It\'s finished';
+      }
+    },
   }
 });
 
