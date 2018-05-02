@@ -1,8 +1,9 @@
 const FAVICON_SIZE = 48;
 const FAVICON_BORDER_SIZE = 3;
 
-const SECONDS_PER_HOUR = 60 * 60;
 const SECONDS_PER_MINUTE = 60;
+const SECONDS_PER_HOUR = SECONDS_PER_MINUTE * 60;
+const SECONDS_PER_DAY = SECONDS_PER_HOUR * 24;
 
 const QUOTES_LINK = 'https://gist.githubusercontent.com/JakubPetriska/060958fd744ca34f099e947cd080b540/raw/b67adf9f1978df0288486ca076023798fea11e3d/quotes.csv';
 const QUOTE_REFRESH_INTERVAL_SECONDS = 5 * 60;
@@ -167,12 +168,15 @@ Vue.component('countdown', {
   computed: {
     timeLeft: function () {
       let currentSecondsLeft = this.secondsLeft;
+      const daysLeft = Math.floor(currentSecondsLeft / SECONDS_PER_DAY);
+      currentSecondsLeft -= daysLeft * SECONDS_PER_DAY;
+
       const hoursLeft = Math.floor(currentSecondsLeft / SECONDS_PER_HOUR);
       currentSecondsLeft -= hoursLeft * SECONDS_PER_HOUR;
 
       const minutesLeft = Math.floor(currentSecondsLeft / SECONDS_PER_MINUTE);
       currentSecondsLeft -= minutesLeft * SECONDS_PER_MINUTE;
-      return [hoursLeft, minutesLeft, currentSecondsLeft];
+      return [daysLeft, hoursLeft, minutesLeft, currentSecondsLeft];
     },
     timeLeftString: function () {
       return this.timeLeft
@@ -184,7 +188,12 @@ Vue.component('countdown', {
       while(values[0] === 0) {
         values = values.slice(1);
       }
-      return values
+      let daysString = '';
+      if (values.length == 4) {
+        daysString = values[0] + ' days ';
+        values = values.slice(1);
+      }
+      return daysString + values
         .map((e, i) => i > 0 ? formatNumberToTwoDigits(e) : (e + ''))
         .join(':');
     },
